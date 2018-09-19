@@ -6,7 +6,7 @@ public class Boolet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Destroy(gameObject, 2);
+        Destroy(gameObject, 1f);
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -16,7 +16,8 @@ public class Boolet : MonoBehaviour {
         }
         if (other.gameObject.CompareTag("Enemy"))
         {
-           Destroy(other.gameObject);
+            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
         if (other.gameObject.CompareTag("Door"))
         {

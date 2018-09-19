@@ -6,6 +6,8 @@ public class BulletSpawner : MonoBehaviour
 {
     public GameObject spawnPrefab;
     float timer = 0f;
+    int direction = 1;
+    bool right;
 
 
     // Use this for initialization
@@ -17,7 +19,8 @@ public class BulletSpawner : MonoBehaviour
     void SpawnMe()
     {
         GameObject boolet = (GameObject)Instantiate(spawnPrefab, transform.position, transform.rotation);
-        boolet.GetComponent<Rigidbody2D>().velocity = new Vector2(10, 0);
+        float xVel = 10 + direction*transform.GetComponent<Rigidbody2D>().velocity.x;
+        boolet.GetComponent<Rigidbody2D>().velocity = new Vector2(direction* xVel, 0);
 
     }
 
@@ -27,12 +30,30 @@ public class BulletSpawner : MonoBehaviour
         if (Input.GetKey(KeyCode.V))
         {
             timer += Time.deltaTime;
-            if (timer > .15)
+            if (timer > .3)
             {
                 SpawnMe();
                 timer = 0;
             }
 
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            if (right)
+            {
+                right = false;
+                direction = -1;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            if (!right)
+            {
+                right = true;
+                direction = 1;
+            }
         }
     }
 
